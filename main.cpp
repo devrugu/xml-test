@@ -1,5 +1,5 @@
 #include "XmlConfigParser.h"
-#include "../sources/XmlInterpreter.cpp"
+#include "../headers/XmlInterpreter.h"
 
 #include <iostream>
 #include <map>
@@ -35,6 +35,7 @@ int main()
 
     // Use the interpret method to retrieve values
     double range = interpreter.interpret<double>("alfa.range");
+    bool isFull = interpreter.interpret<bool>("alfa.isFull");
     int temperature = interpreter.interpret<int>("beta.temperature");
     std::string status = interpreter.interpret<std::string>("gama.status");
     std::vector<std::string> friends = interpreter.interpret<std::vector<std::string>>("delta.friends");
@@ -50,6 +51,8 @@ int main()
 
     // Print the retrieved values
     std::cout << "Range: " << range << "\n";
+
+    std::cout << "isFull: " << ((isFull)?"true":"false") << "\n";
 
     std::cout << "Temperature: " << temperature << "\n";
 

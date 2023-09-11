@@ -4,12 +4,29 @@ QT += xml concurrent
 CONFIG += c++17 console
 CONFIG -= app_bundle
 
-LIBS += -L/usr/local/lib/ -lmatio
-INCLUDEPATH += /usr/local/include
+LIBS += -L/opt/test/matio -lmatio
+INCLUDEPATH += /opt/test/include
 
-INCLUDEPATH += /home/operator/qt-projects/UtilitiesLibrary/src/ConfigurationParser/xml/headers
-LIBS += -L"/home/operator/qt-projects/UtilitiesLibrary/lib" \
-        -lutilities
+INCLUDEPATH += /opt/test/UtilitiesLibrary/src/ConfigurationParser/xml/headers
+
+
+# Configuration specific to debug build
+CONFIG(debug, debug|release) {
+    DESTDIR = $$_PRO_FILE_PWD_/bin/debug
+    LIBS += -L"/opt/test/UtilitiesLibrary/lib/debug" \
+            -lutilitiesd
+    TARGET = xmld
+    QMAKE_CXXFLAGS_DEBUG += -O0 -g
+}
+
+# Configuration specific to release build
+CONFIG(release, debug|release) {
+    DESTDIR = $$_PRO_FILE_PWD_/bin/release
+    LIBS += -L"/opt/test/UtilitiesLibrary/lib/release" \
+            -lutilities
+    TARGET = xml
+    QMAKE_CXXFLAGS_RELEASE -= -O2
+}
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
